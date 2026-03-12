@@ -4,8 +4,8 @@ import ProductList from "../components/ProductList";
 import { useProducts } from "../hooks/useProducts";
 import Sidebar from "../components/Sidebar";
 
-export default function InventoryPage(){
-  const {products} = useProducts();
+export default function InventoryPage() {
+  const { products } = useProducts();
 
   return (
     <>
@@ -13,11 +13,10 @@ export default function InventoryPage(){
       <Sidebar></Sidebar>
 
       <div className="main-content">
-          <FilterMenu />
+        <FilterMenu />
 
         <ProductList products={products} />
-
       </div>
     </>
-  )
+  );
 }
