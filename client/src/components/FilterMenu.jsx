@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useCategories } from "../hooks/useCategories";
 
-export default function FilterMenu() {
+export default function FilterMenu({ showAddButton = false }) {
   const { categories, loading, error } = useCategories();
 
   return (
@@ -10,6 +10,7 @@ export default function FilterMenu() {
       className="d-flex align-items-center py-4 border-bottom"
       style={{ paddingLeft: "190px" }}
     >
+      {/* FILTRO */}
       <div className="dropdown me-2">
         <button
           className="btn text-white d-flex align-items-center dropdown-toggle"
@@ -38,6 +39,8 @@ export default function FilterMenu() {
           ))}
         </ul>
       </div>
+
+      {/* BUSCADOR */}
       <form className="d-flex mx-1" style={{ flex: 1, maxWidth: "600px" }}>
         <input
           className="form-control me-2"
@@ -48,6 +51,18 @@ export default function FilterMenu() {
           <i className="bi bi-search text-white"></i>
         </button>
       </form>
+
+      {/* BOTON AGREGAR */}
+      {showAddButton && (
+        <button
+          className="btn btn-light d-flex align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#AddProductFormModal"
+        >
+          <i className="bi bi-plus-circle mx-1 text-success"></i>
+          Agregar Producto
+        </button>
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import FilterMenu from "../components/filterMenu";
 import ProductList from "../components/ProductList";
 import { useProducts } from "../hooks/useProducts";
 import Sidebar from "../components/Sidebar";
+import AddProductButton from "../components/addProductButton";
 
 export default function InventoryPage() {
   const { products } = useProducts();
@@ -13,7 +14,7 @@ export default function InventoryPage() {
       <Sidebar></Sidebar>
 
       <div className="main-content">
-        <FilterMenu />
+        <FilterMenu showAddButton = {true}/>
 
         <ProductList products={products} />
       </div>
