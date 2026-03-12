@@ -13,10 +13,7 @@ export default function InventoryPage(){
       <Sidebar></Sidebar>
 
       <div className="main-content">
-
-        <div className="d-flex justify-content-end mb-3">
           <FilterMenu />
-        </div>
 
         <ProductList products={products} />
 

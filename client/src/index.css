@@ -108,7 +108,7 @@ header img {
 ======================== */
 
 .main-content {
-/*  margin-left: 250px;*/
+  margin-left: 250px;
   margin-top: 110px;
   padding: 20px;
   min-height: 100vh;

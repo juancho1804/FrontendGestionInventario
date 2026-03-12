@@ -38,10 +38,16 @@ export default function FilterMenu() {
           ))}
         </ul>
       </div>
-                              <form className="d-flex mx-1" style={{ flex: 1, maxWidth: "600px" }}>
-                            <input className="form-control me-2" type="search" placeholder="Buscar" />
-                            <button className="btn" type="submit"><i className="bi bi-search text-white"></i></button>
-                        </form>
+      <form className="d-flex mx-1" style={{ flex: 1, maxWidth: "600px" }}>
+        <input
+          className="form-control me-2"
+          type="search"
+          placeholder="Buscar"
+        />
+        <button className="btn" type="submit">
+          <i className="bi bi-search text-white"></i>
+        </button>
+      </form>
     </div>
   );
 }
