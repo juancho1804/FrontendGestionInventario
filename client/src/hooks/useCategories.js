@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategoriesApi } from "../services/categoryService";
+import { getCategories } from "../services/categoryService";
 
 export function useCategories() {
   const [categories, setCategories] = useState([]);
@@ -7,10 +7,10 @@ export function useCategories() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function loadCategories() {
       setLoading(true);
       try {
-        const data = await getCategoriesApi();
+        const data = await getCategories();
         setCategories(data);
       } catch (err) {
         setError(err.message);
@@ -18,7 +18,7 @@ export function useCategories() {
         setLoading(false);
       }
     }
-    fetchData();
+    loadCategories();
   }, []);
 
   return { categories, loading, error };

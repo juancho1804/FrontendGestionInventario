@@ -111,6 +111,14 @@ header img {
   overflow-x: hidden;  /* evita scroll horizontal */
 }
 
+.image-card{
+    width: 100%;
+    height: 350px;
+    objectFit: cover; 
+    objectPosition: center;
+
+}
+
 
 
 

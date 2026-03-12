@@ -1,54 +1,54 @@
 import { useState } from "react";
-import { addProductApi } from "../services/productService";
+import { addProductApi, editProductApi } from "../services/productService";
 
-export function useProductForm(onSuccess){
-    const [loading, setLoading] = useState(false);
-    const [error, setError]= useState(null);
+const TALLAS_IDS = { S: 1, M: 2, L: 3, XL: 4, XXL: 5, XXXL: 6 };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
-    
+export function useProductForm(product, onSuccess) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
     try {
       const form = e.target;
+      const formDataObj = Object.fromEntries(new FormData(form));
 
-      const sizes = ["S","M","L","XL","XXL","XXXL"]
-
-      const variants = sizes.reduce((acc, size, index)=>{
-        acc[index +1]= form[`size_${size}`].value || 0;
-        return acc;
-      }, {});
+      // Preparar variantes según tu state de tallas
+      const variants = {};
+      for (const [key, value] of Object.entries(formDataObj)) {
+        if (key.startsWith("size_")) {
+          const sizeName = key.replace("size_", "");
+          const id = TALLAS_IDS[sizeName];
+          if (id) variants[id] = Number(value) || 0;
+        }
+      }
 
       const productData = {
-        color: form.color.value,
-        price: form.price.value,
-        categoryId: form.category.value, 
-        brandId: form.brand.value, 
-        image: form.image.files[0],
+        id: product?.id,
+        categoryId: formDataObj.category,
+        brandId: formDataObj.brand,
+        color: formDataObj.color,
+        price: formDataObj.price,
+        image: form.image?.files?.[0] ?? null,
         variants
       };
 
-      const saved = await addProductApi(productData);
-      console.log("Producto guardado",saved);
-      if(onSuccess){
-        console.log("FORM llamando a onsuccess");
-        onSuccess(saved);
-        console.log("FORM llamo a onsuccess");
-        console.log("[FORM] Producto que devolvió el backend al guardar:", saved);
-
+      if (product?.id) {
+        await editProductApi(productData);
+      } else {
+        await addProductApi(productData);
       }
-      form.reset();
-    } catch (err){
-        setError(err.message);
 
-    }finally{
-        setLoading(false);
+      onSuccess?.(); // callback después de guardar/editar
+    } catch (err) {
+      setError(err.message || "Error desconocido");
+    } finally {
+      setLoading(false);
     }
-};
-return{handleSubmit,loading,error};
+  };
 
-
-
+  return { handleSubmit, loading, error };
 }
