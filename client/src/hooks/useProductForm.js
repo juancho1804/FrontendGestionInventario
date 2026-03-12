@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addProductApi, editProductApi } from "../services/productService";
+import { addProduct } from "../services/productService";
 
 const TALLAS_IDS = { S: 1, M: 2, L: 3, XL: 4, XXL: 5, XXXL: 6 };
 
@@ -16,13 +16,18 @@ export function useProductForm(product, onSuccess) {
       const form = e.target;
       const formDataObj = Object.fromEntries(new FormData(form));
 
-      // Preparar variantes según tu state de tallas
+      // Construir variantes
       const variants = {};
+
       for (const [key, value] of Object.entries(formDataObj)) {
         if (key.startsWith("size_")) {
           const sizeName = key.replace("size_", "");
           const id = TALLAS_IDS[sizeName];
-          if (id) variants[id] = Number(value) || 0;
+
+          if (id) {
+            // 👈 igual que en tu versión que funcionaba
+            variants[id] = value || "0";
+          }
         }
       }
 
@@ -32,17 +37,20 @@ export function useProductForm(product, onSuccess) {
         brandId: formDataObj.brand,
         color: formDataObj.color,
         price: formDataObj.price,
-        image: form.image?.files?.[0] ?? null,
+        image: form.image?.files?.[0], // no mandar null
         variants
       };
 
       if (product?.id) {
-        await editProductApi(productData);
+        // await editProduct(productData);
       } else {
-        await addProductApi(productData);
+        await addProduct(productData);
       }
 
-      onSuccess?.(); // callback después de guardar/editar
+      onSuccess?.();
+
+      form.reset();
+
     } catch (err) {
       setError(err.message || "Error desconocido");
     } finally {

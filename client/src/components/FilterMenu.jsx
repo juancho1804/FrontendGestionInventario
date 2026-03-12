@@ -1,6 +1,5 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useCategories } from "../hooks/useCategories";
+import AddProductButton from "../components/AddProductButton";
 
 export default function FilterMenu({ showAddButton = false }) {
   const { categories, loading, error } = useCategories();
@@ -54,14 +53,7 @@ export default function FilterMenu({ showAddButton = false }) {
 
       {/* BOTON AGREGAR */}
       {showAddButton && (
-        <button
-          className="btn btn-light d-flex align-items-center"
-          data-bs-toggle="modal"
-          data-bs-target="#AddProductFormModal"
-        >
-          <i className="bi bi-plus-circle mx-1 text-success"></i>
-          Agregar Producto
-        </button>
+        <AddProductButton></AddProductButton>
       )}
     </div>
   );
