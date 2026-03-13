@@ -1,7 +1,7 @@
 import { useCategories } from "../hooks/useCategories";
 import AddProductButton from "../components/AddProductButton";
 
-export default function FilterMenu({ showAddButton = false }) {
+export default function FilterMenu({ showAddButton = false, onAdd }) {
   const { categories, loading, error } = useCategories();
 
   return (
@@ -53,7 +53,7 @@ export default function FilterMenu({ showAddButton = false }) {
 
       {/* BOTON AGREGAR */}
       {showAddButton && (
-        <AddProductButton></AddProductButton>
+        <AddProductButton onClick={onAdd}></AddProductButton>
       )}
     </div>
   );

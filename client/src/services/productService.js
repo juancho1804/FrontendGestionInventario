@@ -1,4 +1,4 @@
-import { fetchProductsApi, createProductApi, deleteProductApi } from "../data/productApi";
+import { fetchProductsApi, createProductApi, deleteProductApi, editProductApi } from "../data/productApi";
 
 export const getProducts = async () => {
   const products = await fetchProductsApi();
@@ -12,6 +12,33 @@ export const deleteProductService = async (productId) => {
   }
   return false;
 };
+
+export const editProduct = async (productData) => {
+  const formData = new FormData();
+
+  formData.append("id", productData.id);
+  formData.append("categoryId", productData.categoryId);
+  formData.append("color", productData.color);
+  formData.append("brandId", productData.brandId);
+  formData.append("price", productData.price);
+  if (productData.image) {
+    formData.append("image", productData.image);
+  }
+
+  formData.append(
+    "productVariantRequest",
+    JSON.stringify({
+      variants: productData.variants,
+    }),
+  );
+
+  for (let pair of formData.entries()) {
+    console.log(pair[0], pair[1]);
+  }
+
+  return await editProductApi(formData);
+};
+
 
 
 

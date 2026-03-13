@@ -1,7 +1,7 @@
 import { formatPrice } from "../hooks/utils/formatPrice";
 import {Pencil, Eye, Trash2} from 'lucide-react'
 
-export default function ProductCard({ product, onDelete }) {
+export default function ProductCard({ product, onDelete, onEdit }) {
   return (
     <div className="col">
       <div className="card d-flex flex-column">
@@ -28,7 +28,7 @@ export default function ProductCard({ product, onDelete }) {
             <button title="Ver" className="btn-icon" onClick={() => /* manejar ver */ null}>
               <Eye color="#48c3cb" />
             </button>
-            <button title="Editar" className="btn-icon" onClick={() => /* manejar editar */ null}>
+            <button title="Editar" className="btn-icon" onClick={() => onEdit(product)}>
               <Pencil color="#f6fe86"/>
             </button>
             <button
