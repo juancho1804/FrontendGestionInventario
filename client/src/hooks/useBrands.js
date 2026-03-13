@@ -6,9 +6,9 @@ export function useBrands() {
 
   useEffect(() => {
     fetch(`${base}/brands`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(setBrands)
-      .catch(err => console.error("Error al cargar marcas", err));
+      .catch((err) => console.error("Error al cargar marcas", err));
   }, [base]);
 
   return { brands };
