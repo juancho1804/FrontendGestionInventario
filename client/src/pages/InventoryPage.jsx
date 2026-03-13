@@ -3,10 +3,10 @@ import FilterMenu from "../components/filterMenu";
 import ProductList from "../components/ProductList";
 import { useProducts } from "../hooks/useProducts";
 import Sidebar from "../components/Sidebar";
-import AddProductFormModal from "../components/addProductFormModal";
+import AddProductFormModal from "../components/AddProductFormModal";
 
 export default function InventoryPage() {
-  const { products } = useProducts();
+  const { products, loadProducts } = useProducts();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function InventoryPage() {
         <ProductList products={products} />
       </div>
 
-      <AddProductFormModal />   {/* ← FALTA ESTO */}
+      <AddProductFormModal onSuccess = {loadProducts}/>   {/* ← FALTA ESTO */}
     </>
   );
 }

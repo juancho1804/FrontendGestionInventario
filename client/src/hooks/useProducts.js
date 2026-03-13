@@ -5,14 +5,14 @@ export const useProducts = () => {
 
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const data = await getProducts();
-      setProducts(data);
-    };
+  const loadProducts = async () => {
+  const data = await getProducts();
+  setProducts(data);
+  };
 
+  useEffect(() => {
     loadProducts();
   }, []);
 
-  return { products };
+  return { products, loadProducts };
 };

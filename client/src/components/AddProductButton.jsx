@@ -5,6 +5,7 @@ export default function AddProductButton() {
       data-bs-toggle="modal"
       data-bs-target="#addProductFormModal"
       style={{ borderRadius: "10px" }}
+      type="button"
     >
       <i className="bi bi-plus-circle mx-1 text-success"></i>
       Agregar Producto

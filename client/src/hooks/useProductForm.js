@@ -3,7 +3,7 @@ import { addProduct } from "../services/productService";
 
 const TALLAS_IDS = { S: 1, M: 2, L: 3, XL: 4, XXL: 5, XXXL: 6 };
 
-export function useProductForm(product, onSuccess) {
+export function useProductForm(product) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -46,13 +46,13 @@ export function useProductForm(product, onSuccess) {
 
       await addProduct(productData);
 
-      onSuccess?.();
-
-      form.reset();
+      return { success: true };
 
     } catch (err) {
 
       setError(err.message || "Error desconocido");
+
+      return { success: false };
 
     } finally {
 
