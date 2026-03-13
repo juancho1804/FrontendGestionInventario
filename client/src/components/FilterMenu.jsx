@@ -6,7 +6,7 @@ export default function FilterMenu({ showAddButton = false }) {
 
   return (
     <div
-      className="d-flex align-items-center py-4 border-bottom"
+      className="d-flex flex-wrap align-items-center gap-3 py-4 border-bottom"
       style={{ paddingLeft: "190px" }}
     >
       {/* FILTRO */}
@@ -40,7 +40,7 @@ export default function FilterMenu({ showAddButton = false }) {
       </div>
 
       {/* BUSCADOR */}
-      <form className="d-flex mx-1" style={{ flex: 1, maxWidth: "600px" }}>
+      <form className="d-flex mx-1" style={{ minWidth: "200px", maxWidth: "600px", flex: 1 }}>
         <input
           className="form-control me-2"
           type="search"

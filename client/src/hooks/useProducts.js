@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
+import { getProducts, deleteProductService } from "../services/productService";
 
 export const useProducts = () => {
   const [products, setProducts] = useState([]);
+
+  const deleteProduct = async (id) => {
+    await deleteProductService(id);
+    loadProducts();
+  };
 
   const loadProducts = async () => {
     const data = await getProducts();
@@ -13,5 +18,5 @@ export const useProducts = () => {
     loadProducts();
   }, []);
 
-  return { products, loadProducts };
+  return { products, loadProducts, deleteProduct };
 };

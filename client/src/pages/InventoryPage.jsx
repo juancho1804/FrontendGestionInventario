@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import AddProductFormModal from "../components/AddProductFormModal";
 
 export default function InventoryPage() {
-  const { products, loadProducts } = useProducts();
+  const { products, loadProducts, deleteProduct } = useProducts();
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function InventoryPage() {
 
       <div className="main-content">
         <FilterMenu showAddButton={true} />
-        <ProductList products={products} />
+        <ProductList products={products} onDelete={deleteProduct} />
       </div>
 
       <AddProductFormModal onSuccess = {loadProducts}/>   {/* ← FALTA ESTO */}

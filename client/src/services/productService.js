@@ -1,10 +1,19 @@
-import { fetchProducts } from "../data/productApi";
-import { createProduct } from "../data/productApi";
+import { fetchProductsApi, createProductApi, deleteProductApi } from "../data/productApi";
 
 export const getProducts = async () => {
-  const products = await fetchProducts();
+  const products = await fetchProductsApi();
   return products;
 };
+
+export const deleteProductService = async (productId) => {
+  const status = await deleteProductApi(productId);
+  if(status == 204){
+    return true;
+  }
+  return false;
+};
+
+
 
 export const addProduct = async (productData) => {
   const formData = new FormData();
@@ -28,5 +37,5 @@ export const addProduct = async (productData) => {
     console.log(pair[0], pair[1]);
   }
 
-  return await createProduct(formData);
+  return await createProductApi(formData);
 };
