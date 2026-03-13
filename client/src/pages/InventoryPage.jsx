@@ -11,7 +11,7 @@ export default function InventoryPage() {
   return (
     <>
       <Header />
-      <Sidebar />
+
 
       <div className="main-content">
         <FilterMenu showAddButton={true} />
