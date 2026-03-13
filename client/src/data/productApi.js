@@ -7,20 +7,7 @@ export const fetchProducts = async () => {
 
 export const createProduct = async (productData) => {
 
-  const formData = new FormData();
-
-  formData.append("categoryId", productData.categoryId);
-  formData.append("color", productData.color);
-  formData.append("brandId", productData.brandId);
-  formData.append("price", productData.price);
-  formData.append("image", productData.image);
-
-  formData.append(
-    "productVariantRequest",
-    JSON.stringify({ variants: productData.variants })
-  );
-
-  const response = await axiosClient.post("/products", formData);
+  const response = await axiosClient.post("/products", productData);
 
   return response.data;
 };
