@@ -1,7 +1,7 @@
 import { useCategories } from "../hooks/useCategories";
 import AddProductButton from "../components/AddProductButton";
 
-export default function FilterMenu({ showAddButton = false, onAdd }) {
+export default function FilterMenu({ showAddButton = false, onAdd, onCategoryChange }) {
   const { categories, loading, error } = useCategories();
 
   return (
@@ -33,7 +33,9 @@ export default function FilterMenu({ showAddButton = false, onAdd }) {
           )}
           {categories.map((cat) => (
             <li key={cat.id}>
-              <a className="dropdown-item">{cat.name}</a>
+              <a className="dropdown-item"
+              onClick={() => onCategoryChange(cat.id)}
+              >{cat.name}</a>
             </li>
           ))}
         </ul>

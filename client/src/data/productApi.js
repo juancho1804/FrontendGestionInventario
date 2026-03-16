@@ -5,6 +5,11 @@ export const fetchProductsApi = async () => {
   return response.data;
 };
 
+export const fetchProductsByCategoryApi = async (categoryId) =>{
+  const response = await axiosClient.get("/products/"+categoryId);
+  return response.data;
+}
+
 export const createProductApi = async (productData) => {
   console.log("entro a crear");
   console.log(productData.precio);

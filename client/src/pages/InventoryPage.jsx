@@ -7,7 +7,10 @@ import AddProductFormModal from "../components/AddProductFormModal";
 import { useState } from "react";
 
 export default function InventoryPage() {
-  const { products, loadProducts, deleteProduct } = useProducts();
+  
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { products, loadProducts, deleteProduct } =
+    useProducts(selectedCategory);
   const [productToEdit, setProductToEdit] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -26,7 +29,11 @@ export default function InventoryPage() {
       <Header />
 
       <div className="main-content">
-        <FilterMenu showAddButton={true} onAdd={handleAdd} />
+        <FilterMenu
+          showAddButton={true}
+          onAdd={handleAdd}
+          onCategoryChange={setSelectedCategory}
+        />
         <ProductList
           products={products}
           onDelete={deleteProduct}
