@@ -5,6 +5,18 @@ export const fetchProductsApi = async () => {
   return response.data;
 };
 
+export const getFilteredProductsApi = async (categoryIds, brandsIds) => {
+  const response = await axiosClient.get("/products/filter", {
+    params: {
+      cats: categoryIds,
+      brands: brandsIds
+    }
+  });
+  console.log("PRODUCTOS: "+response.data);
+
+  return response.data;
+};
+
 export const fetchProductsByCategoryApi = async (categoryId) =>{
   const response = await axiosClient.get("/products/"+categoryId);
   return response.data;

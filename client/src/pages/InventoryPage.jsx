@@ -7,21 +7,30 @@ import AddProductFormModal from "../components/AddProductFormModal";
 import { useState } from "react";
 
 export default function InventoryPage() {
-  
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const { products, loadProducts, deleteProduct } =
-    useProducts(selectedCategory);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+
+  const { products, loadProducts, deleteProduct } = useProducts(selectedCategories, selectedBrands);
+
   const [productToEdit, setProductToEdit] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const handleEdit = (product) => {
     setProductToEdit(product);
-    setShowModal(true); // abre el modal
+    setShowModal(true);
   };
 
   const handleAdd = () => {
     setProductToEdit(null);
-    setShowModal(true); // abrir modal para nuevo producto
+    setShowModal(true);
+  };
+
+  // Recibe { categories: [1,3], brands: [2] } desde FilterMenu
+  const handleFiltersChange = ({ categories, brands }) => {
+    setSelectedCategories(categories);
+    setSelectedBrands(brands);
+    // useProducts se re-ejecuta automáticamente porque cambian sus dependencias
   };
 
   return (
@@ -32,7 +41,7 @@ export default function InventoryPage() {
         <FilterMenu
           showAddButton={true}
           onAdd={handleAdd}
-          onCategoryChange={setSelectedCategory}
+          onFiltersChange={handleFiltersChange}
         />
         <ProductList
           products={products}

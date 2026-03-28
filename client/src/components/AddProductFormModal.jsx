@@ -153,7 +153,7 @@ export default function AddProductFormModal({
                         </option>
                         {brands.map((b) => (
                           <option key={b.id} value={b.id}>
-                            {b.brand}
+                            {b.name}
                           </option>
                         ))}
                       </select>
