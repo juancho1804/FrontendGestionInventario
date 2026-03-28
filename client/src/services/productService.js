@@ -1,7 +1,18 @@
-import { fetchProductsApi, createProductApi, deleteProductApi, editProductApi } from "../data/productApi";
+import { fetchProductsApi,fetchProductsByCategoryApi, createProductApi, deleteProductApi, editProductApi, getFilteredProductsApi } from "../data/productApi";
 
 export const getProducts = async () => {
   const products = await fetchProductsApi();
+  return products;
+};
+
+export const getFilteredProducts = async (categoryIds, brandsIds) => {
+  console.log("categoria recibida: "+categoryIds[0]+" brand recibida:"+brandsIds);
+  const products = await getFilteredProductsApi (categoryIds, brandsIds);
+  return products;
+}
+
+export const getProductsByCategory = async (categoryId) => {
+  const products = await fetchProductsByCategoryApi(categoryId);
   return products;
 };
 

@@ -1,15 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { getBrands } from "../services/brandsService";
 
-export function useBrands() {
+export const useBrands = () => {
   const [brands, setBrands] = useState([]);
-  const base = import.meta.env.VITE_API_URL || "http://localhost:8001";
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${base}/brands`)
-      .then((res) => res.json())
-      .then(setBrands)
-      .catch((err) => console.error("Error al cargar marcas", err));
-  }, [base]);
+    const loadBrands = async () => {
+      try {
+        const data = await getBrands();
+        setBrands(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  return { brands };
-}
+    loadBrands();
+  }, []); // [] — solo se ejecuta una vez al montar el componente
+
+  return { brands, loading, error };
+};

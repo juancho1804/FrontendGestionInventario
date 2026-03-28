@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProducts, deleteProductService } from "../services/productService";
+import { getProducts, deleteProductService, getFilteredProducts } from "../services/productService";
 
-export const useProducts = () => {
+export const useProducts = (categoryIds = [], brandsIds = []) => {
   const [products, setProducts] = useState([]);
 
   const deleteProduct = async (id) => {
@@ -10,13 +10,21 @@ export const useProducts = () => {
   };
 
   const loadProducts = async () => {
-    const data = await getProducts();
-    setProducts(data);
+    const hasCategories = categoryIds.length > 0;
+    const hasBrands = brandsIds.length > 0;
+
+    if(hasCategories || hasBrands){
+      const data = await getFilteredProducts(categoryIds , brandsIds);
+      setProducts(data);
+    }else{
+      const data = await getProducts();
+      setProducts(data);
+    }
   };
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [JSON.stringify(categoryIds), JSON.stringify(brandsIds)]);
 
   return { products, loadProducts, deleteProduct };
 };

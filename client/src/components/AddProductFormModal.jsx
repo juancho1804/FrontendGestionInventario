@@ -24,18 +24,21 @@ export default function AddProductFormModal({
   } = useCategories();
   const { brands, loading: loadingBrands, error: errorBrands } = useBrands();
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const url = URL.createObjectURL(file);
-    setPreview(url);
+    setPreview(URL.createObjectURL(file));
   };
 
   const handleFormSubmit = async (e) => {
-    const result = await handleSubmit(e);
+    const result = await handleSubmit(e); 
     if (result?.success) {
-      toast.success(product ? "Producto actualizado correctamente":"Producto guardado correctamente");
+      toast.success(
+        product
+          ? "Producto actualizado correctamente"
+          : "Producto guardado correctamente",
+      );
       if (onSuccess) onSuccess();
     }
   };
@@ -55,7 +58,6 @@ export default function AddProductFormModal({
       setSelectedBrand(String(product.brandId)); // <-- convierte a string
     }
   }, [loadingBrands, product?.brandId]);
-
 
   return (
     // Overlay controlado por React, no por Bootstrap JS
@@ -151,7 +153,7 @@ export default function AddProductFormModal({
                         </option>
                         {brands.map((b) => (
                           <option key={b.id} value={b.id}>
-                            {b.brand}
+                            {b.name}
                           </option>
                         ))}
                       </select>
