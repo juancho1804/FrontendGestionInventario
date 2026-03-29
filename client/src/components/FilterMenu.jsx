@@ -106,6 +106,8 @@ function FilterSection({ title, items, selected, onToggle, loading, error }) {
           )}
 
           {/* Renderiza un item por cada categoría o marca */}
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 8px" }}>
+          {/* Renderiza un item por cada categoría o marca */}
           {items.map((item) => {
             // Verifica si este item está en el Set de seleccionados
             const checked = selected.has(item.id);
@@ -152,6 +154,7 @@ function FilterSection({ title, items, selected, onToggle, loading, error }) {
               </div>
             );
           })}
+        </div>
         </div>
       )}
     </div>
