@@ -5,11 +5,12 @@ export const fetchProductsApi = async () => {
   return response.data;
 };
 
-export const getFilteredProductsApi = async (categoryIds, brandsIds) => {
+export const getFilteredProductsApi = async (categoryIds, brandsIds, sizesIds) => {
   const response = await axiosClient.get("/products/filter", {
     params: {
       cats: categoryIds,
-      brands: brandsIds
+      brands: brandsIds,
+      sizes: sizesIds
     }
   });
   return response.data;

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { addProduct, editProduct } from "../services/productService";
 
-const TALLAS_IDS = { S: 1, M: 2, L: 3, XL: 4, XXL: 5, XXXL: 6 };
 
 export function useProductForm(product, sizes = []) {
   const [loading, setLoading] = useState(false);
@@ -15,7 +14,7 @@ export function useProductForm(product, sizes = []) {
     try {
       const form = e.target;
       const formDataObj = Object.fromEntries(new FormData(form));
-      const sizeMap = Object.fromEntries(sizes.map((s) => [s.size, s.id]));
+      const sizeMap = Object.fromEntries(sizes.map((s) => [s.name, s.id]));
 
       const variants = {};
 

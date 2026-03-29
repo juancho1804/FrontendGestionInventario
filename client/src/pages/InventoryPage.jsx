@@ -10,8 +10,9 @@ export default function InventoryPage() {
 
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const { products, loadProducts, deleteProduct } = useProducts(selectedCategories, selectedBrands);
+  const { products, loadProducts, deleteProduct } = useProducts(selectedCategories, selectedBrands, selectedSizes);
 
   const [productToEdit, setProductToEdit] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -27,9 +28,10 @@ export default function InventoryPage() {
   };
 
   // Recibe { categories: [1,3], brands: [2] } desde FilterMenu
-  const handleFiltersChange = ({ categories, brands }) => {
+  const handleFiltersChange = ({ categories, brands, sizes }) => {
     setSelectedCategories(categories);
     setSelectedBrands(brands);
+    setSelectedSizes(sizes);
     // useProducts se re-ejecuta automáticamente porque cambian sus dependencias
   };
 

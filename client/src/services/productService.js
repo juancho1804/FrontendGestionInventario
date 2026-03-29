@@ -5,8 +5,8 @@ export const getProducts = async () => {
   return products;
 };
 
-export const getFilteredProducts = async (categoryIds, brandsIds) => {
-  const products = await getFilteredProductsApi (categoryIds, brandsIds);
+export const getFilteredProducts = async (categoryIds, brandsIds, sizesIds) => {
+  const products = await getFilteredProductsApi (categoryIds, brandsIds, sizesIds);
   return products;
 }
 
