@@ -8,7 +8,7 @@ export default function ProductCard({ product, onDelete, onEdit }) {
         {/* Imagen */}
         <div className="card-image-wrapper">
           <img
-            src={`${import.meta.env.VITE_API_URL}${product.urlImage}`}
+            src={`${import.meta.env.VITE_API_URL}${product.urlImages[0]}`}
             className="img-fluid image-card"
             alt={product.name}
           />
