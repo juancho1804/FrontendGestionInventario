@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useCategories } from "../hooks/useCategories";
 import { useBrands } from "../hooks/useBrands";
+import {useSizes} from "../hooks/useSizes"
 import AddProductButton from "../components/AddProductButton";
 
 // Icono de check (palomita) que aparece dentro del checkbox cuando está seleccionado
@@ -174,6 +175,8 @@ export default function FilterMenu({
   const { categories, loading: catLoading, error: catError } = useCategories();
   // Trae las marcas desde el hook (fetch al endpoint de marcas)
   const { brands, loading: brandLoading, error: brandError } = useBrands();
+  // Trae las tallas desde el hook (fetch al endpoint de tallas)
+  const { sizes, loading: sizeLoading, error: sizeError } = useSizes();
 
   // Controla si el panel de filtros está abierto o cerrado
   const [open, setOpen] = useState(false);
@@ -181,6 +184,7 @@ export default function FilterMenu({
   // Sets con los ids seleccionados — se usan Sets para búsqueda O(1) con .has()
   const [selectedCats, setSelectedCats] = useState(new Set());
   const [selectedBrands, setSelectedBrands] = useState(new Set());
+  const [selectedSizes, setSelectedSizes] = useState(new Set());
 
   // Refs para detectar clicks fuera del panel y cerrarlo
   const panelRef = useRef(null); // referencia al panel desplegable
@@ -226,6 +230,7 @@ export default function FilterMenu({
   function clearAll() {
     setSelectedCats(new Set());
     setSelectedBrands(new Set());
+    setSelectedSizes(new Set());
   }
 
   /**
@@ -236,25 +241,17 @@ export default function FilterMenu({
    *    [...selectedCats] → [1, 3] (ids seleccionados)
    */
   function applyFilters() {
-    const categories = [...selectedCats];
-    const brands = [...selectedBrands];
-
-    console.log("categorias seleccionadas:", categories);
-    console.log(
-      "tipos:",
-      categories.map((id) => typeof id),
-    ); // ← clave
-    console.log("brands seleccionadas:", brands);
     setOpen(false);
     if (onFiltersChange)
       onFiltersChange({
         categories: [...selectedCats],
         brands: [...selectedBrands],
+        sizes: [...selectedSizes],
       });
   }
 
   // Total de filtros activos para mostrar en el badge del botón
-  const totalSelected = selectedCats.size + selectedBrands.size;
+  const totalSelected = selectedCats.size + selectedBrands.size + selectedSizes.size;
 
   return (
     <div
@@ -374,6 +371,15 @@ export default function FilterMenu({
             onToggle={(id) => toggleItem(setSelectedBrands, id)}
             loading={brandLoading}
             error={brandError}
+          />
+          {/* Sección de tallas */}
+          <FilterSection
+            title="Talla"
+            items={sizes}
+            selected={selectedSizes}
+            onToggle={(id) => toggleItem(setSelectedSizes, id)}
+            loading={sizeLoading}
+            error={sizeError}
           />
 
           {/* Botón que confirma y aplica los filtros seleccionados */}

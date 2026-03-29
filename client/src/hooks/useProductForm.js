@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { addProduct, editProduct } from "../services/productService";
 
-const TALLAS_IDS = { S: 1, M: 2, L: 3, XL: 4, XXL: 5, XXXL: 6 };
 
-export function useProductForm(product) {
+export function useProductForm(product, sizes = []) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -15,13 +14,14 @@ export function useProductForm(product) {
     try {
       const form = e.target;
       const formDataObj = Object.fromEntries(new FormData(form));
+      const sizeMap = Object.fromEntries(sizes.map((s) => [s.name, s.id]));
 
       const variants = {};
 
       for (const [key, value] of Object.entries(formDataObj)) {
         if (key.startsWith("size_")) {
           const sizeName = key.replace("size_", "");
-          const id = TALLAS_IDS[sizeName];
+          const id = sizeMap[sizeName];
 
           if (id) {
             variants[id] = Number(value) || 0;

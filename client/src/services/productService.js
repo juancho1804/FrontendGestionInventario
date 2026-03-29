@@ -5,9 +5,8 @@ export const getProducts = async () => {
   return products;
 };
 
-export const getFilteredProducts = async (categoryIds, brandsIds) => {
-  console.log("categoria recibida: "+categoryIds[0]+" brand recibida:"+brandsIds);
-  const products = await getFilteredProductsApi (categoryIds, brandsIds);
+export const getFilteredProducts = async (categoryIds, brandsIds, sizesIds) => {
+  const products = await getFilteredProductsApi (categoryIds, brandsIds, sizesIds);
   return products;
 }
 
@@ -43,10 +42,6 @@ export const editProduct = async (productData) => {
     }),
   );
 
-  for (let pair of formData.entries()) {
-    console.log(pair[0], pair[1]);
-  }
-
   return await editProductApi(formData);
 };
 
@@ -70,10 +65,6 @@ export const addProduct = async (productData) => {
       variants: productData.variants,
     }),
   );
-
-  for (let pair of formData.entries()) {
-    console.log(pair[0], pair[1]);
-  }
 
   return await createProductApi(formData);
 };

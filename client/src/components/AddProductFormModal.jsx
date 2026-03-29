@@ -3,15 +3,18 @@ import { useProductForm } from "../hooks/useProductForm";
 import { useCategories } from "../hooks/useCategories";
 import { useBrands } from "../hooks/useBrands";
 import { toast } from "react-toastify";
-
-const SIZES = ["S", "M", "L", "XL", "XXL", "XXXL"];
+import { useSizes } from "../hooks/useSizes";
 
 export default function AddProductFormModal({
   product = null,
   onSuccess,
   onClose,
 }) {
-  const { handleSubmit, loading, error } = useProductForm(product, onSuccess);
+  const { sizes, loading: loadingSizes, error: errorSizes } = useSizes();
+  const { handleSubmit, loading, error } = useProductForm(
+    product,
+    sizes,
+  );
   const [preview, setPreview] = useState(
     product?.urlImage
       ? `${import.meta.env.VITE_API_URL}${product.urlImage}`
@@ -22,6 +25,7 @@ export default function AddProductFormModal({
     loading: loadingCategories,
     error: errorCategories,
   } = useCategories();
+
   const { brands, loading: loadingBrands, error: errorBrands } = useBrands();
 
   const handleImageChange = async (e) => {
@@ -32,7 +36,7 @@ export default function AddProductFormModal({
   };
 
   const handleFormSubmit = async (e) => {
-    const result = await handleSubmit(e); 
+    const result = await handleSubmit(e);
     if (result?.success) {
       toast.success(
         product
@@ -165,18 +169,20 @@ export default function AddProductFormModal({
                       Inventario por talla
                     </label>
                     <div className="row g-2">
-                      {SIZES.map((size) => (
-                        <div key={size} className="col-md-4">
+                      {sizes.map((size) => (
+                        <div key={size.id} className="col-md-4">
                           <div className="border rounded p-2 d-flex justify-content-between align-items-center">
-                            <span className="fw-bold">{size}</span>
+                            <span className="fw-bold">{size.name}</span>
                             <input
                               type="number"
                               className="form-control"
                               style={{ width: "80px" }}
-                              name={`size_${size}`}
+                              name={`size_${size.name}`}
                               min="0"
                               placeholder="0"
-                              defaultValue={product?.variantes?.[size] || 0}
+                              defaultValue={
+                                product?.variantes?.[size.name] || 0
+                              }
                             />
                           </div>
                         </div>

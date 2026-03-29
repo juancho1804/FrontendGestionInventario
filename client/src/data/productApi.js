@@ -5,15 +5,14 @@ export const fetchProductsApi = async () => {
   return response.data;
 };
 
-export const getFilteredProductsApi = async (categoryIds, brandsIds) => {
+export const getFilteredProductsApi = async (categoryIds, brandsIds, sizesIds) => {
   const response = await axiosClient.get("/products/filter", {
     params: {
       cats: categoryIds,
-      brands: brandsIds
+      brands: brandsIds,
+      sizes: sizesIds
     }
   });
-  console.log("PRODUCTOS: "+response.data);
-
   return response.data;
 };
 
@@ -23,14 +22,11 @@ export const fetchProductsByCategoryApi = async (categoryId) =>{
 }
 
 export const createProductApi = async (productData) => {
-  console.log("entro a crear");
-  console.log(productData.precio);
   const response = await axiosClient.post("/products", productData);
   return response.data;
 };
 
 export const editProductApi = async (productData) => {
-  console.log("entro a editar");
   const response = await axiosClient.put("/products", productData);
 
   return response.data;
