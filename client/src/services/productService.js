@@ -6,7 +6,6 @@ export const getProducts = async () => {
 };
 
 export const getFilteredProducts = async (categoryIds, brandsIds) => {
-  console.log("categoria recibida: "+categoryIds[0]+" brand recibida:"+brandsIds);
   const products = await getFilteredProductsApi (categoryIds, brandsIds);
   return products;
 }
@@ -43,10 +42,6 @@ export const editProduct = async (productData) => {
     }),
   );
 
-  for (let pair of formData.entries()) {
-    console.log(pair[0], pair[1]);
-  }
-
   return await editProductApi(formData);
 };
 
@@ -70,10 +65,6 @@ export const addProduct = async (productData) => {
       variants: productData.variants,
     }),
   );
-
-  for (let pair of formData.entries()) {
-    console.log(pair[0], pair[1]);
-  }
 
   return await createProductApi(formData);
 };

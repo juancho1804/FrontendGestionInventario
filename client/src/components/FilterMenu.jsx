@@ -236,15 +236,6 @@ export default function FilterMenu({
    *    [...selectedCats] → [1, 3] (ids seleccionados)
    */
   function applyFilters() {
-    const categories = [...selectedCats];
-    const brands = [...selectedBrands];
-
-    console.log("categorias seleccionadas:", categories);
-    console.log(
-      "tipos:",
-      categories.map((id) => typeof id),
-    ); // ← clave
-    console.log("brands seleccionadas:", brands);
     setOpen(false);
     if (onFiltersChange)
       onFiltersChange({
