@@ -1,4 +1,11 @@
-import { fetchProductsApi,fetchProductsByCategoryApi, createProductApi, deleteProductApi, editProductApi, getFilteredProductsApi } from "../data/productApi";
+import {
+  fetchProductsApi,
+  fetchProductsByCategoryApi,
+  createProductApi,
+  deleteProductApi,
+  editProductApi,
+  getFilteredProductsApi,
+} from "../data/productApi";
 
 export const getProducts = async () => {
   const products = await fetchProductsApi();
@@ -6,9 +13,13 @@ export const getProducts = async () => {
 };
 
 export const getFilteredProducts = async (categoryIds, brandsIds, sizesIds) => {
-  const products = await getFilteredProductsApi (categoryIds, brandsIds, sizesIds);
+  const products = await getFilteredProductsApi(
+    categoryIds,
+    brandsIds,
+    sizesIds,
+  );
   return products;
-}
+};
 
 export const getProductsByCategory = async (categoryId) => {
   const products = await fetchProductsByCategoryApi(categoryId);
@@ -17,7 +28,7 @@ export const getProductsByCategory = async (categoryId) => {
 
 export const deleteProductService = async (productId) => {
   const status = await deleteProductApi(productId);
-  if(status == 204){
+  if (status == 204) {
     return true;
   }
   return false;
@@ -31,10 +42,16 @@ export const editProduct = async (productData) => {
   formData.append("color", productData.color);
   formData.append("brandId", productData.brandId);
   formData.append("price", productData.price);
-  if (productData.image) {
-    formData.append("image", productData.image);
-  }
+  // URLs que ya existían y el usuario conservó
+  const existingImages = Array.from(productData.images || [])
+    .filter(img => typeof img === "string");
+  existingImages.forEach(url => formData.append("existingImages", url));
 
+  // Archivos nuevos que el usuario agregó
+  const newImages = Array.from(productData.images || [])
+    .filter(img => img instanceof File);
+  newImages.forEach(file => formData.append("images", file));
+  
   formData.append(
     "productVariantRequest",
     JSON.stringify({
@@ -45,9 +62,6 @@ export const editProduct = async (productData) => {
   return await editProductApi(formData);
 };
 
-
-
-
 export const addProduct = async (productData) => {
   const formData = new FormData();
 
@@ -55,8 +69,9 @@ export const addProduct = async (productData) => {
   formData.append("color", productData.color);
   formData.append("brandId", productData.brandId);
   formData.append("price", productData.price);
-  if (productData.image) {
-    formData.append("image", productData.image);
+  const images = Array.from(productData.images || []);
+  if (images.length) {
+    images.forEach((image) => formData.append("images", image));
   }
 
   formData.append(

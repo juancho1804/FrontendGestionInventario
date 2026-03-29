@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addProduct, editProduct } from "../services/productService";
 
 
-export function useProductForm(product, sizes = []) {
+export function useProductForm(product, sizes = [], images = []) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -35,7 +35,7 @@ export function useProductForm(product, sizes = []) {
         brandId: Number(formDataObj.brand),
         color: formDataObj.color,
         price: Number(formDataObj.price),
-        image: form.image.files[0],
+        images,
         variants,
       };
 
