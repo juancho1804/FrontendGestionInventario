@@ -45,7 +45,7 @@ export default function ImageGrid({ images, canAddMore, onRemove, onAdd, fileInp
         )}
       </div>
 
-      <input ref={fileInputRef} type="file" style={{ display: "none" }} accept="image/png, image/jpeg, image/heic" multiple onChange={onFileChange} />
+      <input ref={fileInputRef} type="file" style={{ display: "none" }} accept="image/png, image/jpeg" multiple onChange={onFileChange} />
     </div>
   );
 }
