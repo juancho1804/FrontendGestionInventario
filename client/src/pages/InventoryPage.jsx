@@ -5,6 +5,7 @@ import { useProducts } from "../hooks/useProducts";
 import Sidebar from "../components/Sidebar";
 import AddProductFormModal from "../components/AddProductFormModal";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 export default function InventoryPage() {
 
@@ -35,13 +36,18 @@ export default function InventoryPage() {
     // useProducts se re-ejecuta automáticamente porque cambian sus dependencias
   };
 
+  const {user} = useAuth();
+  const isAdmin = user?.role === "ROLE_ADMIN";
+
+
+
   return (
     <>
       <Header />
 
       <div className="main-content">
         <FilterMenu
-          showAddButton={true}
+          showAddButton={isAdmin}
           onAdd={handleAdd}
           onFiltersChange={handleFiltersChange}
         />
@@ -49,6 +55,7 @@ export default function InventoryPage() {
           products={products}
           onDelete={deleteProduct}
           onEdit={handleEdit}
+          isAdmin={isAdmin}
         />
       </div>
 
