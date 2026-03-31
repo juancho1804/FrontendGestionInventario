@@ -19,16 +19,16 @@ export default function FilterMenu({ showAddButton = false, onAdd, onFiltersChan
   }, []);
 
   return (
-    <div className="d-flex flex-wrap align-items-center gap-3 py-4 border-bottom" style={{ paddingLeft: "190px" }}>
+    <div className="d-flex flex-wrap align-items-center gap-3 py-4" style={{ paddingLeft: "190px" }}>
       <div style={{ position: "relative" }}>
         <button
           ref={triggerRef}
           onClick={() => setOpen((o) => !o)}
           className="btn text-white d-flex align-items-center gap-2"
-          style={{ background: "#1e1e1e", border: "1px solid #333", borderRadius: 8, padding: "7px 14px" }}
+          style={{  borderRadius: 8, padding: "7px 14px" }}
         >
-          <i className="bi bi-filter" style={{ fontSize: 20 }}></i>
-          Filtrar
+          <i className="bi bi-filter"></i>
+          <a style={{fontSize: 16}}>Filtrar</a>
           {filterState.totalSelected > 0 && (
             <span style={{ background: "#e53935", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: "50%", width: 17, height: 17, display: "flex", alignItems: "center", justifyContent: "center" }}>
               {filterState.totalSelected}
@@ -43,13 +43,6 @@ export default function FilterMenu({ showAddButton = false, onAdd, onFiltersChan
           filterState={{ ...filterState, applyFilters: (fn) => filterState.applyFilters(() => setOpen(false)) }}
         />
       </div>
-
-      <form className="d-flex mx-1" style={{ minWidth: "200px", maxWidth: "600px", flex: 1 }}>
-        <input className="form-control me-2" type="search" placeholder="Buscar" />
-        <button className="btn" type="submit">
-          <i className="bi bi-search text-white"></i>
-        </button>
-      </form>
 
       {showAddButton && <AddProductButton onClick={onAdd} />}
     </div>

@@ -30,6 +30,16 @@ header img {
   height: auto;
 }
 
+.icon-btn {
+  background: transparent !important;
+  border: none;
+  padding: 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 /* ========================
    NAV
 ======================== */
@@ -540,7 +550,9 @@ header img {
   }
 
   .nav {
-    display: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0
   }
 
   .image-card {
