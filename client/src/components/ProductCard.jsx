@@ -1,5 +1,5 @@
 import { formatPrice } from "../hooks/utils/formatPrice";
-import { Pencil, Eye, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 
 export default function ProductCard({ product, onDelete, onEdit, isAdmin }) {
@@ -53,13 +53,6 @@ export default function ProductCard({ product, onDelete, onEdit, isAdmin }) {
                 className="card-actions d-flex flex-column"
                 style={{ gap: "8px" }}
               >
-                <button
-                  title="Ver"
-                  className="btn-icon"
-                  onClick={() => /* manejar ver */ null}
-                >
-                  <Eye color="#48c3cb" />
-                </button>
                 <button
                   title="Editar"
                   className="btn-icon"
