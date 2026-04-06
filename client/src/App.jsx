@@ -4,11 +4,8 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
-    <InventoryPage />
-    <ToastContainer
-    position="top-right"
-    autoClose={3000}
-    />
+      <InventoryPage />
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

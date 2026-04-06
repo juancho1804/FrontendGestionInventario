@@ -29,6 +29,12 @@ export function useFilterState(onFiltersChange) {
       });
   }
 
+  function resetFilters(){
+    setSelectedCats(new Set());
+    setSelectedBrands(new Set());
+    setSelectedSizes(new Set());
+  }
+
   const totalSelected = selectedCats.size + selectedBrands.size + selectedSizes.size;
 
   return {
@@ -37,5 +43,6 @@ export function useFilterState(onFiltersChange) {
     selectedSizes, setSelectedSizes,
     toggleItem, clearAll, applyFilters,
     totalSelected,
+    resetFilters,
   };
 }

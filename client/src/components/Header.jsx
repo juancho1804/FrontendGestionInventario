@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { NAV_BY_ROLE } from "./config/navigationConfig";
 import AuthPanel from "./auth/AuthPanel";
 import NavMenu from "./navMenu";
-import { NAV_BY_ROLE } from "./config/navigationConfig";
 import { Search, User } from "lucide-react";
 
-export default function Header() {
+export default function Header({ onGenderChange, selectedGender }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("login");
   const { user, login, register, logout } = useAuth();
@@ -31,30 +31,23 @@ export default function Header() {
 
   return (
     <header className="d-flex align-items-center px-4">
-      {/* IZQUIERDA */}
       <div className="d-flex align-items-center">
         <a className="navbar-brand me-4">
           <img src="/src/images/Copia de Store 1A.png" alt="Logo Store1A" />
         </a>
-
-        <NavMenu items={navItems} />
+        <NavMenu
+          items={navItems}
+          onGenderChange={onGenderChange}       // 👈
+          selectedGender={selectedGender}       // 👈
+        />
       </div>
 
-      {/* DERECHA */}
       <div className="d-flex align-items-center gap-3 ms-auto">
-        <button className="icon-btn">
-          <Search size={20} />
-        </button>
-
+        <button className="icon-btn"><Search size={20} /></button>
         <div className="auth-trigger-wrapper">
-          <button
-            ref={triggerRef}
-            className="icon-btn"
-            onClick={() => setOpen((o) => !o)}
-          >
+          <button ref={triggerRef} className="icon-btn" onClick={() => setOpen((o) => !o)}>
             <User size={20} />
           </button>
-
           <AuthPanel
             panelRef={panelRef}
             open={open}
@@ -66,10 +59,7 @@ export default function Header() {
               setOpen(false);
             }}
             onRegister={register}
-            onLogout={() => {
-              logout();
-              setOpen(false);
-            }}
+            onLogout={() => { logout(); setOpen(false); }}
           />
         </div>
       </div>
