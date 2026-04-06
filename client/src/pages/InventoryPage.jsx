@@ -6,12 +6,16 @@ import AddProductFormModal from "../components/AddProductFormModal";
 import { useState, useMemo } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCategories } from "../hooks/useCategories";
+import { useSearchParams } from "react-router-dom";
 
 export default function InventoryPage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
-  const [selectedGender, setSelectedGender] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [selectedGender, setSelectedGender] = useState(
+    searchParams.get("gender") || null,
+  );
 
   const { categories } = useCategories();
 
@@ -19,8 +23,8 @@ export default function InventoryPage() {
   const genderCategoryIds = useMemo(() => {
     if (!selectedGender) return [];
     return categories
-      .filter(c => c.gender === selectedGender)
-      .map(c => c.id);
+      .filter((c) => c.gender === selectedGender)
+      .map((c) => c.id);
   }, [selectedGender, categories]);
 
   // Combina categorías del FilterPanel con las del género
@@ -29,7 +33,7 @@ export default function InventoryPage() {
   const effectiveCategoryIds = useMemo(() => {
     if (selectedGender && selectedCategories.length > 0) {
       // solo las categorías del panel que pertenecen al género seleccionado
-      return selectedCategories.filter(id => genderCategoryIds.includes(id));
+      return selectedCategories.filter((id) => genderCategoryIds.includes(id));
     }
     if (selectedGender) return genderCategoryIds;
     return selectedCategories;
@@ -38,14 +42,20 @@ export default function InventoryPage() {
   const { products, loadProducts, deleteProduct } = useProducts(
     effectiveCategoryIds,
     selectedBrands,
-    selectedSizes
+    selectedSizes,
   );
 
   const [productToEdit, setProductToEdit] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const handleEdit = (product) => { setProductToEdit(product); setShowModal(true); };
-  const handleAdd = () => { setProductToEdit(null); setShowModal(true); };
+  const handleEdit = (product) => {
+    setProductToEdit(product);
+    setShowModal(true);
+  };
+  const handleAdd = () => {
+    setProductToEdit(null);
+    setShowModal(true);
+  };
 
   const handleFiltersChange = ({ categories, brands, sizes }) => {
     setSelectedCategories(categories);
@@ -58,7 +68,6 @@ export default function InventoryPage() {
     setSelectedCategories([]); // limpia categorías del panel al cambiar género
     setSelectedBrands([]);
     setSelectedSizes([]);
-
   };
 
   const { user } = useAuth();

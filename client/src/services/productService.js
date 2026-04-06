@@ -5,6 +5,7 @@ import {
   deleteProductApi,
   editProductApi,
   getFilteredProductsApi,
+  findProductApi,
 } from "../data/productApi";
 
 export const getProducts = async () => {
@@ -39,7 +40,7 @@ export const editProduct = async (productData) => {
 
   formData.append("id", productData.id);
   formData.append("categoryId", productData.categoryId);
-  formData.append("color", productData.color);
+  formData.append("colorId", productData.colorId);
   formData.append("brandId", productData.brandId);
   formData.append("price", productData.price);
   // URLs que ya existían y el usuario conservó
@@ -66,7 +67,7 @@ export const addProduct = async (productData) => {
   const formData = new FormData();
 
   formData.append("categoryId", productData.categoryId);
-  formData.append("color", productData.color);
+  formData.append("colorId", productData.colorId);
   formData.append("brandId", productData.brandId);
   formData.append("price", productData.price);
   const images = Array.from(productData.images || []);
@@ -82,4 +83,9 @@ export const addProduct = async (productData) => {
   );
 
   return await createProductApi(formData);
+};
+
+export const findProductService = async (productId) => {
+  const response = await findProductApi(productId);
+  return response;
 };

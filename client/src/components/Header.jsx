@@ -4,8 +4,11 @@ import { NAV_BY_ROLE } from "./config/navigationConfig";
 import AuthPanel from "./auth/AuthPanel";
 import NavMenu from "./navMenu";
 import { Search, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ onGenderChange, selectedGender }) {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("login");
   const { user, login, register, logout } = useAuth();
@@ -15,6 +18,15 @@ export default function Header({ onGenderChange, selectedGender }) {
 
   const role = user?.role === "ROLE_ADMIN" ? "ADMIN" : "USER";
   const navItems = NAV_BY_ROLE[role];
+
+  const handleGenderChange = (gender) => {
+    if (onGenderChange) {
+      onGenderChange(gender); // comportamiento normal en InventoryPage
+    } else {
+      // en ProductPage navega al inventario con el género
+      navigate(gender ? `/?gender=${gender}` : "/");
+    }
+  };
 
   useEffect(() => {
     function handleOutside(e) {
@@ -37,15 +49,21 @@ export default function Header({ onGenderChange, selectedGender }) {
         </a>
         <NavMenu
           items={navItems}
-          onGenderChange={onGenderChange}       // 👈
-          selectedGender={selectedGender}       // 👈
+          onGenderChange={handleGenderChange} 
+          selectedGender={selectedGender} 
         />
       </div>
 
       <div className="d-flex align-items-center gap-3 ms-auto">
-        <button className="icon-btn"><Search size={20} /></button>
+        <button className="icon-btn">
+          <Search size={20} />
+        </button>
         <div className="auth-trigger-wrapper">
-          <button ref={triggerRef} className="icon-btn" onClick={() => setOpen((o) => !o)}>
+          <button
+            ref={triggerRef}
+            className="icon-btn"
+            onClick={() => setOpen((o) => !o)}
+          >
             <User size={20} />
           </button>
           <AuthPanel
@@ -59,7 +77,10 @@ export default function Header({ onGenderChange, selectedGender }) {
               setOpen(false);
             }}
             onRegister={register}
-            onLogout={() => { logout(); setOpen(false); }}
+            onLogout={() => {
+              logout();
+              setOpen(false);
+            }}
           />
         </div>
       </div>

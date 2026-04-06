@@ -222,6 +222,144 @@ header img {
 }
 
 /* ========================
+   PRODUCT PAGE
+======================== */
+
+.product-image-main {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  aspect-ratio: 1;
+}
+
+.product-image-main__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.product-thumbnail {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.product-thumbnail--active {
+  border-color: #fff;
+}
+
+.product-thumbnail__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-detail__category {
+  color: #888;
+  font-size: 13px;
+  margin: 0;
+}
+
+.product-detail__name {
+  color: #fff;
+  font-weight: 700;
+  margin: 4px 0 0;
+  font-size: 1.6rem;
+}
+
+.product-detail__price {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.product-detail__divider {
+  border-color: #2a2a2a;
+  margin: 4px 0;
+}
+
+.product-detail__label {
+  color: #888;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 8px;
+}
+
+.product-detail__label-value {
+  color: #fff;
+}
+
+.product-color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #444;
+  display: inline-block;
+}
+
+.product-sizes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.product-size-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.15s;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #333;
+}
+
+.product-size-btn--active {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.product-add-btn {
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  cursor: not-allowed;
+  background: #222;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.product-add-btn--active {
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.product-add-btn--active:hover {
+  background: #ddd;
+}
+
+/* ========================
    MODAL
 ======================== */
 
