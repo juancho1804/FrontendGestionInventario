@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { NAV_BY_ROLE } from "./config/navigationConfig";
 import AuthPanel from "./auth/AuthPanel";
 import NavMenu from "./navMenu";
-import { NAV_BY_ROLE } from "./config/navigationConfig";
 import { Search, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ onGenderChange, selectedGender }) {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("login");
   const { user, login, register, logout } = useAuth();
@@ -15,6 +18,15 @@ export default function Header() {
 
   const role = user?.role === "ROLE_ADMIN" ? "ADMIN" : "USER";
   const navItems = NAV_BY_ROLE[role];
+
+  const handleGenderChange = (gender) => {
+    if (onGenderChange) {
+      onGenderChange(gender); // comportamiento normal en InventoryPage
+    } else {
+      // en ProductPage navega al inventario con el género
+      navigate(gender ? `/?gender=${gender}` : "/");
+    }
+  };
 
   useEffect(() => {
     function handleOutside(e) {
@@ -31,21 +43,21 @@ export default function Header() {
 
   return (
     <header className="d-flex align-items-center px-4">
-      {/* IZQUIERDA */}
       <div className="d-flex align-items-center">
         <a className="navbar-brand me-4">
           <img src="/src/images/Copia de Store 1A.png" alt="Logo Store1A" />
         </a>
-
-        <NavMenu items={navItems} />
+        <NavMenu
+          items={navItems}
+          onGenderChange={handleGenderChange} 
+          selectedGender={selectedGender} 
+        />
       </div>
 
-      {/* DERECHA */}
       <div className="d-flex align-items-center gap-3 ms-auto">
         <button className="icon-btn">
           <Search size={20} />
         </button>
-
         <div className="auth-trigger-wrapper">
           <button
             ref={triggerRef}
@@ -54,7 +66,6 @@ export default function Header() {
           >
             <User size={20} />
           </button>
-
           <AuthPanel
             panelRef={panelRef}
             open={open}

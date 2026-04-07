@@ -1,6 +1,7 @@
 import { formatPrice } from "../hooks/utils/formatPrice";
 import { Pencil, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product, onDelete, onEdit, isAdmin }) {
   const handleDelete = async () => {
@@ -20,9 +21,11 @@ export default function ProductCard({ product, onDelete, onEdit, isAdmin }) {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="col">
-      <div className="card d-flex flex-column">
+      <div className="card d-flex flex-column" style={{cursor:"pointer"}} onClick={() => navigate(`/product/${product.id}`)}>
         {/* Imagen */}
         <div className="card-image-wrapper">
           <img
@@ -56,14 +59,14 @@ export default function ProductCard({ product, onDelete, onEdit, isAdmin }) {
                 <button
                   title="Editar"
                   className="btn-icon"
-                  onClick={() => onEdit(product)}
+                  onClick={(e) => { e.stopPropagation(); onEdit(product); }}
                 >
                   <Pencil color="#f6fe86" />
                 </button>
                 <button
                   title="Eliminar"
                   className="btn-icon btn-danger"
-                  onClick={handleDelete}
+                  onClick={(e) => { e.stopPropagation(); handleDelete(); }}
                 >
                   <Trash2 color="#ae3232" />
                 </button>

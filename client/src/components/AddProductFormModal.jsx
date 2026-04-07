@@ -7,23 +7,32 @@ import { useSizes } from "../hooks/useSizes";
 import { toast } from "react-toastify";
 import ImageGrid from "./ImageGrid";
 import SizeInventory from "./SizeInventory";
+import { useColors } from "../hooks/useColors";
+import ColorPicker from "./ColorPicker";
 
-export default function AddProductFormModal({ product = null, onSuccess, onClose }) {
+export default function AddProductFormModal({
+  product = null,
+  onSuccess,
+  onClose,
+}) {
   const { sizes } = useSizes();
   const { categories, loading: loadingCategories } = useCategories();
   const { brands, loading: loadingBrands } = useBrands();
+  const { colors, loading: loadingColors } = useColors();
 
-  const { images, fileInputRef, handleImageChange, handleRemove, canAddMore } = useImageManager(product);
+  const { images, fileInputRef, handleImageChange, handleRemove, canAddMore } =
+    useImageManager(product);
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
 
   const { handleSubmit, loading, error } = useProductForm(
     product,
     sizes,
     images.map((img) => img.data),
+    selectedColor,
   );
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-
   useEffect(() => {
     if (!loadingCategories && product?.categoryId)
       setSelectedCategory(String(product.categoryId));
@@ -34,6 +43,11 @@ export default function AddProductFormModal({ product = null, onSuccess, onClose
       setSelectedBrand(String(product.brandId));
   }, [loadingBrands, product?.brandId]);
 
+  useEffect(() => {
+    if (!loadingColors && product?.colorId)
+      setSelectedColor(String(product.colorId));
+  }, [loadingColors, product?.colorId]);
+
   const handleFormSubmit = async (e) => {
     const result = await handleSubmit(e);
     if (result?.success) {
@@ -43,11 +57,21 @@ export default function AddProductFormModal({ product = null, onSuccess, onClose
   };
 
   return (
-    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="modal-dialog modal-xl m-0" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+    <div
+      className="modal-overlay"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="modal-dialog modal-xl m-0"
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
+      >
         <div className="modal-content border-0 shadow">
           <div className="modal-header border-bottom">
-            <h5 className="modal-title fw-bold">{product ? "Editar Producto" : "Agregar Producto"}</h5>
+            <h5 className="modal-title fw-bold">
+              {product ? "Editar Producto" : "Agregar Producto"}
+            </h5>
             <button type="button" className="btn-close" onClick={onClose} />
           </div>
 
@@ -61,27 +85,64 @@ export default function AddProductFormModal({ product = null, onSuccess, onClose
                   <div className="row mb-4">
                     <div className="col-md-6">
                       <label className="form-label fw-semibold">Color</label>
-                      <input type="text" className="form-control" name="color" defaultValue={product?.color} required />
+                      <ColorPicker
+                        colors={colors}
+                        value={selectedColor}
+                        onChange={setSelectedColor}
+                        loading={loadingColors}
+                      />
                     </div>
                     <div className="col-md-6">
                       <label className="form-label fw-semibold">Precio</label>
-                      <input type="number" className="form-control" name="price" defaultValue={product?.price} required />
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="price"
+                        defaultValue={product?.price}
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="row mb-4">
                     <div className="col-md-6">
-                      <label className="form-label fw-semibold">Categoría</label>
-                      <select className="form-select" name="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} required>
-                        <option value="">{loadingCategories ? "Cargando..." : "Seleccione..."}</option>
-                        {categories.map((cat) => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+                      <label className="form-label fw-semibold">
+                        Categoría
+                      </label>
+                      <select
+                        className="form-select"
+                        name="category"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        required
+                      >
+                        <option value="">
+                          {loadingCategories ? "Cargando..." : "Seleccione..."}
+                        </option>
+                        {categories.map((cat) => (
+                          <option key={cat.id} value={cat.id}>
+                            {cat.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="col-md-6">
                       <label className="form-label fw-semibold">Marca</label>
-                      <select className="form-select" name="brand" value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)} required>
-                        <option value="">{loadingBrands ? "Cargando..." : "Seleccione..."}</option>
-                        {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+                      <select
+                        className="form-select"
+                        name="brand"
+                        value={selectedBrand}
+                        onChange={(e) => setSelectedBrand(e.target.value)}
+                        required
+                      >
+                        <option value="">
+                          {loadingBrands ? "Cargando..." : "Seleccione..."}
+                        </option>
+                        {brands.map((b) => (
+                          <option key={b.id} value={b.id}>
+                            {b.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -89,8 +150,16 @@ export default function AddProductFormModal({ product = null, onSuccess, onClose
                   <SizeInventory sizes={sizes} product={product} />
 
                   <div className="d-grid mt-4">
-                    <button type="submit" className="btn btn-dark btn-lg" disabled={loading}>
-                      {loading ? "Guardando..." : product ? "Actualizar Producto" : "Guardar Producto"}
+                    <button
+                      type="submit"
+                      className="btn btn-dark btn-lg"
+                      disabled={loading}
+                    >
+                      {loading
+                        ? "Guardando..."
+                        : product
+                          ? "Actualizar Producto"
+                          : "Guardar Producto"}
                     </button>
                   </div>
                 </div>

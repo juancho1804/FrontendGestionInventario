@@ -37,3 +37,8 @@ export const deleteProductApi = async (productId) => {
 
   return response.status;
 } 
+
+export const findProductApi = async (productId) => {
+  const response = await axiosClient.get(`/products/product/${productId}`);
+  return response.data;
+}
