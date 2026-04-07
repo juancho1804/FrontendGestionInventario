@@ -45,7 +45,7 @@ export default function Header({ onGenderChange, selectedGender }) {
     <header className="d-flex align-items-center px-4">
       <div className="d-flex align-items-center">
         <a className="navbar-brand me-4">
-          <img src="/src/images/Copia de Store 1A.png" alt="Logo Store1A" />
+          <img src="/images/Copia de Store 1A.png" alt="Logo Store1A" />
         </a>
         <NavMenu
           items={navItems}
