@@ -373,8 +373,9 @@ header img {
   align-items: flex-start;
   justify-content: center;
   overflow-y: auto;
-  padding: 40px 16px;
+  padding: 20px 16px;
   backdrop-filter: blur(4px);
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
@@ -635,6 +636,7 @@ header img {
   border-left: none;
   transform: rotate(45deg);
 }
+
 .auth-btn {
   width: 100%;
   border: none;
@@ -707,6 +709,16 @@ header img {
   .main-content {
     margin-left: 0;
     margin-top: 90px;
+  }
+
+  .modal-content {
+    margin-bottom: 40px;
+    /* espacio al final para no cortar contenido */
+  }
+
+  .modal-body {
+    padding: 16px !important;
+    /* menos padding en móvil */
   }
 }
 

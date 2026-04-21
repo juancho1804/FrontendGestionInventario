@@ -65,7 +65,6 @@ export default function AddProductFormModal({
     >
       <div
         className="modal-dialog modal-xl m-0"
-        style={{ maxHeight: "90vh", overflowY: "auto" }}
       >
         <div className="modal-content border-0 shadow">
           <div className="modal-header border-bottom">
