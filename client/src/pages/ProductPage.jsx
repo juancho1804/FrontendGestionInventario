@@ -31,7 +31,7 @@ export default function ProductPage() {
             <div className="col-md-6">
               <div className="product-image-main">
                 <img
-                  src={`${import.meta.env.VITE_API_URL}${product.urlImages[selectedImage]}`}
+                  src={product.urlImages[selectedImage]}
                   alt={product.name}
                   className="product-image-main__img"
                 />
@@ -46,7 +46,7 @@ export default function ProductPage() {
                       className={`product-thumbnail ${selectedImage === index ? "product-thumbnail--active" : ""}`}
                     >
                       <img
-                        src={`${import.meta.env.VITE_API_URL}${url}`}
+                        src={url}
                         className="product-thumbnail__img"
                       />
                     </div>
