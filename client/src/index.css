@@ -4,7 +4,8 @@
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif; /* 👈 reemplaza Arial */
+  font-family: "Montserrat", sans-serif;
+  /* 👈 reemplaza Arial */
   background-color: #0d0606;
   color: #fff;
 }
@@ -604,10 +605,36 @@ header img {
 }
 
 .auth-remember input[type="checkbox"] {
-  accent-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1.5px solid #555;
+  border-radius: 4px;
+  background: #111;
   cursor: pointer;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
 }
 
+.auth-remember input[type="checkbox"]:checked {
+  background: #fff;
+  border-color: #fff;
+}
+
+.auth-remember input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #111;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
 .auth-btn {
   width: 100%;
   border: none;
@@ -639,6 +666,7 @@ header img {
 .auth-btn--secondary:hover {
   background: #333;
 }
+
 .auth-panel__email {
   color: #888;
   font-size: 11px;
@@ -688,9 +716,9 @@ header img {
   }
 
   .nav {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0
+    display: flex;
+    align-items: center;
+    margin-bottom: 0
   }
 
   .image-card {
