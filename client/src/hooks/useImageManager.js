@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 export function useImageManager(product) {
   const [images, setImages] = useState(
     product?.urlImages?.map((url) => ({
-      preview: `${import.meta.env.VITE_API_URL}${url}`,
+      preview: url,
       data: url,
     })) || [],
   );
