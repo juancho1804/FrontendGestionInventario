@@ -737,3 +737,15 @@ header img {
     height: 250px;
   }
 }
+
+.filter-menu-bar {
+  padding-left: 190px;
+}
+
+@media (max-width: 768px) {
+  .filter-menu-bar {
+    padding-left: 0;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

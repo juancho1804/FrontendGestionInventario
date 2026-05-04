@@ -33,8 +33,7 @@ export default function FilterMenu({
 
   return (
     <div
-      className="d-flex flex-wrap align-items-center gap-3 py-4"
-      style={{ paddingLeft: "190px" }}
+      className="d-flex flex-wrap align-items-center gap-3 py-4 filter-menu-bar"
     >
       <div style={{ position: "relative" }}>
         <button
