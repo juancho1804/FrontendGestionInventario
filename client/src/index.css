@@ -810,3 +810,72 @@ header img {
     display: none;
   }
 }
+
+.mobile-menu-btn {
+  display: none;
+}
+
+.mobile-drawer-close,
+.mobile-drawer-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  header {
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .header-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    background: #000;
+    z-index: 1100;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .mobile-drawer-open {
+    transform: translateX(0);
+  }
+
+  .mobile-drawer-close {
+    display: flex;
+    margin-bottom: 30px;
+  }
+
+  .mobile-drawer .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mobile-drawer .nav li {
+    margin: 0 0 20px 0;
+  }
+
+  .mobile-drawer-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+  }
+}

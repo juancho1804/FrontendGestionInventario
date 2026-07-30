@@ -3,13 +3,18 @@ import { useAuth } from "../hooks/useAuth";
 import { NAV_BY_ROLE } from "./config/navigationConfig";
 import AuthPanel from "./auth/AuthPanel";
 import NavMenu from "./navMenu";
-import { Search, User } from "lucide-react";
+import { Menu, X, Search, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ onGenderChange, selectedGender, onCategorySelect }) {
+export default function Header({
+  onGenderChange,
+  selectedGender,
+  onCategorySelect,
+}) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [view, setView] = useState("login");
   const { user, login, register, logout } = useAuth();
 
@@ -43,15 +48,22 @@ export default function Header({ onGenderChange, selectedGender, onCategorySelec
 
   return (
     <header className="d-flex align-items-center px-4">
-      <div className="d-flex align-items-center">
+      <button
+        className="icon-btn mobile-menu-btn"
+        onClick={() => setMobileMenuOpen(true)}
+      >
+        <Menu size={24} />
+      </button>
+      <div className="d-flex align-items-center header-brand">
         <a className="navbar-brand me-4">
           <img src="/images/logo.png" alt="Logo Store1A" />
         </a>
         <NavMenu
           items={navItems}
           onGenderChange={handleGenderChange}
-          onCategorySelect={onCategorySelect} 
-          selectedGender={selectedGender} 
+          onCategorySelect={onCategorySelect}
+          selectedGender={selectedGender}
+          className="desktop-nav"
         />
       </div>
 
@@ -85,6 +97,36 @@ export default function Header({ onGenderChange, selectedGender, onCategorySelec
           />
         </div>
       </div>
+
+      <div
+        className={`mobile-drawer ${mobileMenuOpen ? "mobile-drawer-open" : ""}`}
+      >
+        <button
+          className="icon-btn mobile-drawer-close"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <X size={24} />
+        </button>
+        <NavMenu
+          items={navItems}
+          onGenderChange={(gender) => {
+            handleGenderChange(gender);
+            setMobileMenuOpen(false);
+          }}
+          onCategorySelect={(gender, catId) => {
+            onCategorySelect?.(gender, catId);
+            setMobileMenuOpen(false);
+          }}
+          selectedGender={selectedGender}
+        />
+      </div>
+
+      {mobileMenuOpen && (
+        <div
+          className="mobile-drawer-overlay"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
     </header>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useCategories } from "../hooks/useCategories";
 
-export default function NavMenu({ items = [], onGenderChange,onCategorySelect, selectedGender }) {
+export default function NavMenu({ items = [], onGenderChange,onCategorySelect, selectedGender, className = "" }) {
   const { categories } = useCategories();
   const [openGender, setOpenGender] = useState(null);
   const closeTimer = useRef(null);
@@ -17,7 +17,7 @@ export default function NavMenu({ items = [], onGenderChange,onCategorySelect, s
   };
 
   return (
-    <ul className="nav">
+    <ul className={`nav ${className}`}>
       {items.map((item, index) => {
         const categoriasDelGenero = item.gender
           ? categories.filter((c) => c.gender === item.gender)
