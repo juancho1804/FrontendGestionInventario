@@ -815,6 +815,10 @@ header img {
   display: none;
 }
 
+  mobile-drawer {
+    display: none;
+  }
+
 .mobile-drawer-close,
 .mobile-drawer-overlay {
   display: none;
@@ -830,9 +834,6 @@ header img {
     display: flex;
   }
 
-  mobile-drawer {
-    display: none;
-  }
 
   .header-brand {
     position: absolute;
