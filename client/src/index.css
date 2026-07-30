@@ -850,7 +850,7 @@ header img {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100dvh;
     width: 260px;
     background: #000;
     z-index: 1100;
