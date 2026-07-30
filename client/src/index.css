@@ -827,7 +827,6 @@ header img {
 @media (max-width: 768px) {
   header {
     justify-content: space-between;
-    position: relative;
   }
 
   .mobile-menu-btn {
