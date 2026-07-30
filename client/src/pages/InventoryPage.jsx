@@ -17,6 +17,13 @@ export default function InventoryPage() {
     searchParams.get("gender") || null,
   );
 
+  const handleCategorySelect = (gender, categoryId) => {
+    setSelectedGender(gender);
+    setSelectedCategories([categoryId]);
+    setSelectedBrands([]);
+    setSelectedSizes([]);
+  };
+
   const { categories } = useCategories();
 
   // IDs de categorías filtradas por género
@@ -77,6 +84,7 @@ export default function InventoryPage() {
     <>
       <Header
         onGenderChange={handleGenderChange}
+        onCategorySelect={handleCategorySelect}
         selectedGender={selectedGender}
       />
 

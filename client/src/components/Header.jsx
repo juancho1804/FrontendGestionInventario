@@ -6,7 +6,7 @@ import NavMenu from "./navMenu";
 import { Search, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ onGenderChange, selectedGender }) {
+export default function Header({ onGenderChange, selectedGender, onCategorySelect }) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -49,7 +49,8 @@ export default function Header({ onGenderChange, selectedGender }) {
         </a>
         <NavMenu
           items={navItems}
-          onGenderChange={handleGenderChange} 
+          onGenderChange={handleGenderChange}
+          onCategorySelect={onCategorySelect} 
           selectedGender={selectedGender} 
         />
       </div>

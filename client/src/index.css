@@ -749,3 +749,64 @@ header img {
     width: 100%;
   }
 }
+
+.nav-item-hover {
+  position: relative;
+}
+
+.nav-dropdown {
+  position: fixed;
+  top: 110px; /* misma altura que tu header */
+  left: 0;
+  width: 100%;
+  background: #000;
+  border-top: 1px solid #222;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  padding: 30px 60px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 1001;
+}
+
+.nav-dropdown-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 3;
+  column-gap: 40px;
+  max-width: 900px;
+}
+
+.nav-dropdown li {
+  break-inside: avoid;
+  margin-bottom: 4px;
+}
+
+.nav-dropdown li a {
+  display: block;
+  padding: 8px 0;
+  color: #ccc !important;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.nav-dropdown li a:hover {
+  color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .nav-dropdown {
+    display: none;
+  }
+}
