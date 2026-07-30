@@ -830,6 +830,10 @@ header img {
     display: flex;
   }
 
+  mobile-drawer {
+    display: none;
+  }
+
   .header-brand {
     position: absolute;
     left: 50%;
@@ -841,6 +845,7 @@ header img {
   }
 
   .mobile-drawer {
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
