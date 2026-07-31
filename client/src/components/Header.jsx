@@ -109,6 +109,7 @@ export default function Header({
         </button>
         <NavMenu
           items={navItems}
+          isMobile = {true}
           onGenderChange={(gender) => {
             handleGenderChange(gender);
             setMobileMenuOpen(false);
