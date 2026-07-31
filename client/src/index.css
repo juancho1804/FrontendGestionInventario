@@ -131,10 +131,11 @@ header img {
 
 .product-name {
   font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 18px;
   letter-spacing: 0.1px;
   color: white;
+  margin-bottom: 2px;
 }
 
 /* ========================
@@ -142,11 +143,13 @@ header img {
 ======================== */
 
 .product-brand {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0.2px;
-  color: #ebebeb;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.3px;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 }
 
 /* ========================
@@ -154,11 +157,10 @@ header img {
 ======================== */
 
 .product-price {
-  font-weight: 700;
-  font-size: 17px;
-  line-height: 20px;
-  letter-spacing: 0.2px;
-  color: #ebebeb;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ccc;
 }
 
 /* ========================
@@ -167,7 +169,7 @@ header img {
 
 .card {
   background-color: #111;
-  border-radius: 20px;
+  border-radius: 14px;
   border: none;
   overflow: hidden;
   padding-bottom: 10px;
@@ -175,13 +177,20 @@ header img {
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transform: scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
 }
 
 .card-body {
   background-color: #111;
 }
+
+.card-body,
+.card-footer {
+  padding: 12px 14px 4px;
+}
+
+
 
 /* ========================
    PRODUCT ICON
@@ -211,8 +220,14 @@ header img {
 ======================== */
 
 .card-image-wrapper {
-  padding: 16px;
+  padding: 0;
   background: #111;
+}
+
+@media (max-width: 480px) {
+  .card-image-wrapper {
+    padding: 0;
+  }
 }
 
 .image-card {
@@ -733,9 +748,6 @@ header img {
     margin-bottom: 0
   }
 
-  .image-card {
-    height: 250px;
-  }
 }
 
 .filter-menu-bar {
