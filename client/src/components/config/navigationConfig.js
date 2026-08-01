@@ -5,8 +5,9 @@ export const NAV_BY_ROLE = {
     { label: "Mujer", gender: "MUJER" },
   ],
   ADMIN: [
-    { label: "Inventario" },
-    { label: "Órdenes" },
-    { label: "Atender" },
+    { label: "Inventario", path : "/" },
+    { label: "Categorías", path: "/categories" },
+    { label: "Órdenes", path: "/orders" },
+    { label: "Atender", path: "/attend" },
   ],
 };

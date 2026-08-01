@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import {useNavigate, useLocation} from "react-router-dom"
 import { useCategories } from "../hooks/useCategories";
 import { ChevronDown } from "lucide-react";
 
@@ -14,6 +15,9 @@ export default function NavMenu({
   const [openGender, setOpenGender] = useState(null);
   const closeTimer = useRef(null);
   const contentRefs = useRef({});
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleEnter = (gender) => {
     if (isMobile||!gender) return;
     clearTimeout(closeTimer.current);
@@ -26,6 +30,10 @@ export default function NavMenu({
   };
 
   const handleLabelClick = (item, hasCategories) => {
+    if(item.path){
+      navigate(item.path);
+      return;
+    }
     if (isMobile && hasCategories) {
       setOpenGender((prev) => (prev === item.gender ? null : item.gender));
     } else {
@@ -41,6 +49,7 @@ export default function NavMenu({
           : [];
         const hasCategories = categoriasDelGenero.length>0;
         const isOpen = openGender === item.gender;
+        const isActive = item.path? location.pathname === item.path : selectedGender === item.gender;
 
         return (
           <li
@@ -51,7 +60,7 @@ export default function NavMenu({
           >
             
             <a 
-              className={`nav-link ${selectedGender === item.gender ? "active" : ""}`}
+              className={`nav-link ${isActive ? "active" : ""}`}
               style={{ cursor: "pointer" }}
               onClick={() => handleLabelClick(item,hasCategories)}>
               {item.label}
