@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 export function useFilterState(onFiltersChange) {
-  const [selectedCats, setSelectedCats] = useState(new Set());
   const [selectedBrands, setSelectedBrands] = useState(new Set());
   const [selectedSizes, setSelectedSizes] = useState(new Set());
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   function toggleItem(setFn, id) {
     setFn((prev) => {
@@ -14,34 +15,48 @@ export function useFilterState(onFiltersChange) {
   }
 
   function clearAll() {
-    setSelectedCats(new Set());
     setSelectedBrands(new Set());
     setSelectedSizes(new Set());
+    setMinPrice("");
+    setMaxPrice("");
   }
 
   function applyFilters(onClose) {
     onClose();
     if (onFiltersChange)
       onFiltersChange({
-        categories: [...selectedCats],
         brands: [...selectedBrands],
         sizes: [...selectedSizes],
+        minPrice: minPrice === "" ? null : Number(minPrice),
+        maxPrice: maxPrice === "" ? null : Number(maxPrice),
       });
   }
 
-  function resetFilters(){
-    setSelectedCats(new Set());
+  function resetFilters() {
     setSelectedBrands(new Set());
     setSelectedSizes(new Set());
+    setMinPrice("");
+    setMaxPrice("");
   }
 
-  const totalSelected = selectedCats.size + selectedBrands.size + selectedSizes.size;
+  const totalSelected =
+    selectedBrands.size +
+    selectedSizes.size +
+    (minPrice !== "" ? 1 : 0) +
+    (maxPrice !== "" ? 1 : 0);
 
   return {
-    selectedCats, setSelectedCats,
-    selectedBrands, setSelectedBrands,
-    selectedSizes, setSelectedSizes,
-    toggleItem, clearAll, applyFilters,
+    selectedBrands,
+    setSelectedBrands,
+    selectedSizes,
+    setSelectedSizes,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+    toggleItem,
+    clearAll,
+    applyFilters,
     totalSelected,
     resetFilters,
   };

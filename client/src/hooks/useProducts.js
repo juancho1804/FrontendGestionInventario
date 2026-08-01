@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
-import { getProducts, deleteProductService, getFilteredProducts } from "../services/productService";
+import {
+  getProducts,
+  deleteProductService,
+  getFilteredProducts,
+} from "../services/productService";
 
-export const useProducts = (categoryIds = [], brandsIds = [], sizesIds = []) => {
+export const useProducts = (
+  categoryIds = [],
+  brandsIds = [],
+  sizesIds = [],
+  minPrice = null,
+  maxPrice = null,
+) => {
   const [products, setProducts] = useState([]);
 
   const deleteProduct = async (id) => {
@@ -13,11 +23,18 @@ export const useProducts = (categoryIds = [], brandsIds = [], sizesIds = []) => 
     const hasCategories = categoryIds.length > 0;
     const hasBrands = brandsIds.length > 0;
     const hasSizes = sizesIds.length > 0;
+    const hasPrice = minPrice != null || maxPrice != null;
 
-    if(hasCategories || hasBrands || hasSizes){ 
-      const data = await getFilteredProducts(categoryIds , brandsIds, sizesIds);
+    if (hasCategories || hasBrands || hasSizes || hasPrice) {
+      const data = await getFilteredProducts(
+        categoryIds,
+        brandsIds,
+        sizesIds,
+        minPrice,
+        maxPrice,
+      );
       setProducts(data);
-    }else{
+    } else {
       const data = await getProducts();
       setProducts(data);
     }
@@ -25,7 +42,13 @@ export const useProducts = (categoryIds = [], brandsIds = [], sizesIds = []) => 
 
   useEffect(() => {
     loadProducts();
-  }, [JSON.stringify(categoryIds), JSON.stringify(brandsIds), JSON.stringify(sizesIds)]);
+  }, [
+    JSON.stringify(categoryIds),
+    JSON.stringify(brandsIds),
+    JSON.stringify(sizesIds),
+    minPrice,
+    maxPrice,
+  ]);
 
   return { products, loadProducts, deleteProduct };
 };

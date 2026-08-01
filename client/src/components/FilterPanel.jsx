@@ -1,35 +1,24 @@
-import { useCategories } from "../hooks/useCategories";
 import { useBrands } from "../hooks/useBrands";
 import { useSizes } from "../hooks/useSizes";
 import FilterSection from "./FilterSection";
-import { useMemo } from "react";
 
-export default function FilterPanel({
-  panelRef,
-  open,
-  filterState,
-  selectedGender,
-}) {
-  const { categories, loading: catLoading, error: catError } = useCategories();
+export default function FilterPanel({ panelRef, open, filterState }) {
   const { brands, loading: brandLoading, error: brandError } = useBrands();
   const { sizes, loading: sizeLoading, error: sizeError } = useSizes();
 
   const {
-    selectedCats,
-    setSelectedCats,
     selectedBrands,
     setSelectedBrands,
     selectedSizes,
     setSelectedSizes,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
     toggleItem,
     clearAll,
     applyFilters,
   } = filterState;
-
-  const filteredCategories = useMemo(() => {
-    if (!selectedGender) return categories;
-    return categories.filter((c) => c.gender === selectedGender);
-  }, [selectedGender, categories]);
 
   return (
     <div
@@ -76,15 +65,6 @@ export default function FilterPanel({
           Limpiar todo
         </button>
       </div>
-
-      <FilterSection
-        title="Categoría"
-        items={filteredCategories}
-        selected={selectedCats}
-        onToggle={(id) => toggleItem(setSelectedCats, id)}
-        loading={catLoading}
-        error={catError}
-      />
       <FilterSection
         title="Marca"
         items={brands}
@@ -102,6 +82,59 @@ export default function FilterPanel({
         error={sizeError}
         columns={2}
       />
+
+      <div style={{ padding: "10px 14px", borderBottom: "1px solid #2a2a2a" }}>
+        <span
+          style={{
+            color: "#888",
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "0.07em",
+            textTransform: "uppercase",
+            display: "block",
+            marginBottom: 8,
+          }}
+        >
+          Precio
+        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="number"
+            min="0"
+            placeholder="Mín"
+            value={minPrice}
+            onChange={(e) => setMinPrice(e.target.value)}
+            style={{
+              width: "100%",
+              background: "#111",
+              border: "1px solid #333",
+              borderRadius: 6,
+              padding: "6px 8px",
+              color: "#fff",
+              fontSize: 12,
+              outline: "none",
+            }}
+          />
+          <span style={{ color: "#555", fontSize: 12 }}>—</span>
+          <input
+            type="number"
+            min="0"
+            placeholder="Máx"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+            style={{
+              width: "100%",
+              background: "#111",
+              border: "1px solid #333",
+              borderRadius: 6,
+              padding: "6px 8px",
+              color: "#fff",
+              fontSize: 12,
+              outline: "none",
+            }}
+          />
+        </div>
+      </div>
 
       <div style={{ padding: "10px 14px 14px" }}>
         <button

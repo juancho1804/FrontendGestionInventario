@@ -13,11 +13,13 @@ export const getProducts = async () => {
   return products;
 };
 
-export const getFilteredProducts = async (categoryIds, brandsIds, sizesIds) => {
+export const getFilteredProducts = async (categoryIds, brandsIds, sizesIds,minPrice,maxPrice) => {
   const products = await getFilteredProductsApi(
     categoryIds,
     brandsIds,
     sizesIds,
+    minPrice,
+    maxPrice,
   );
   return products;
 };

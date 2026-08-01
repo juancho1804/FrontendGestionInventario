@@ -7,8 +7,7 @@ export default function FilterMenu({
   showAddButton = false,
   onAdd,
   onFiltersChange,
-  selectedGender,
-  onResetFilters,
+  resetKey,
 }) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef(null);
@@ -17,7 +16,9 @@ export default function FilterMenu({
 
   useEffect(() => {
     filterState.resetFilters();
-  }, [selectedGender]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetKey]);
+
   useEffect(() => {
     function handleOutside(e) {
       if (
@@ -32,9 +33,7 @@ export default function FilterMenu({
   }, []);
 
   return (
-    <div
-      className="d-flex flex-wrap align-items-center gap-3 py-4 filter-menu-bar"
-    >
+    <div className="d-flex flex-wrap align-items-center gap-3 py-4 filter-menu-bar">
       <div style={{ position: "relative" }}>
         <button
           ref={triggerRef}
@@ -82,7 +81,6 @@ export default function FilterMenu({
             applyFilters: (fn) =>
               filterState.applyFilters(() => setOpen(false)),
           }}
-          selectedGender={selectedGender}
         />
       </div>
 

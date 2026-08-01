@@ -12,6 +12,9 @@ export default function InventoryPage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [filterResetKey, setFilterResetKey] = useState(0);
   const [searchParams] = useSearchParams();
   const [selectedGender, setSelectedGender] = useState(
     searchParams.get("gender") || null,
@@ -22,6 +25,9 @@ export default function InventoryPage() {
     setSelectedCategories([categoryId]);
     setSelectedBrands([]);
     setSelectedSizes([]);
+    setMinPrice(null);
+    setMaxPrice(null);
+    setFilterResetKey((k) => k + 1);
   };
 
   const { categories } = useCategories();
@@ -50,6 +56,8 @@ export default function InventoryPage() {
     effectiveCategoryIds,
     selectedBrands,
     selectedSizes,
+    minPrice,
+    maxPrice,
   );
 
   const [productToEdit, setProductToEdit] = useState(null);
@@ -64,10 +72,11 @@ export default function InventoryPage() {
     setShowModal(true);
   };
 
-  const handleFiltersChange = ({ categories, brands, sizes }) => {
-    setSelectedCategories(categories);
+  const handleFiltersChange = ({ brands, sizes, minPrice, maxPrice }) => {
     setSelectedBrands(brands);
     setSelectedSizes(sizes);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
   };
 
   const handleGenderChange = (gender) => {
@@ -75,6 +84,9 @@ export default function InventoryPage() {
     setSelectedCategories([]); // limpia categorías del panel al cambiar género
     setSelectedBrands([]);
     setSelectedSizes([]);
+    setMinPrice(null);
+    setMaxPrice(null);
+    setFilterResetKey((k) => k + 1);
   };
 
   const { user } = useAuth();
@@ -93,7 +105,7 @@ export default function InventoryPage() {
           showAddButton={isAdmin}
           onAdd={handleAdd}
           onFiltersChange={handleFiltersChange}
-          selectedGender={selectedGender}
+          resetKey={filterResetKey}
         />
         <ProductList
           products={products}
