@@ -6,8 +6,8 @@ export const NAV_BY_ROLE = {
   ],
   ADMIN: [
     { label: "Inventario", path : "/" },
-    { label: "Categorías", path: "/categories" },
-    { label: "Órdenes", path: "/orders" },
+    { label: "Categorías", path: "/categorias" },
+    { label: "Marcas y Colores", path: "/marcas-colores" },
     { label: "Atender", path: "/attend" },
   ],
 };
